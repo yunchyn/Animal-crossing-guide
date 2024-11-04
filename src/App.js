@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
+import Home from "./routes/home";
+import VillagerList from "./routes/villager-list";
+import Villagers from "./routes/villagers";
+import Layout from "./components/layout";
+
+const GlobalStyles = createGlobalStyle`
+${reset};
+@font-face {
+  font-family: "Korean-YGDL";
+  src: url("/fonts/KoreanYGDL.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+   font-family: "Korean-YGDL";
+   overflow-x: hidden;
+   overflow-y: scroll;
+}
+`;
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "villager-list",
+        element: <VillagerList />,
+      },
+      {
+        path: "villager-list/:villager",
+        element: <Villagers />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyles />
+      <RouterProvider router={router} />
     </div>
   );
 }
