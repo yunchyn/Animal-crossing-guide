@@ -4,7 +4,8 @@ import reset from "styled-reset";
 import Home from "./routes/home";
 import VillagerList from "./routes/villager-list";
 import Villagers from "./routes/villagers";
-import Layout from "./components/layout";
+import { Layout } from "./components/layout";
+import CreatureList from "./routes/creature-list";
 
 const GlobalStyles = createGlobalStyle`
 ${reset};
@@ -24,19 +25,23 @@ body {
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/",
     element: <Layout />,
     children: [
-      {
-        path: "",
-        element: <Home />,
-      },
       {
         path: "villager-list",
         element: <VillagerList />,
       },
       {
-        path: "villager-list/:villager",
+        path: ":villager",
         element: <Villagers />,
+      },
+      {
+        path: "creature-list",
+        element: <CreatureList />,
       },
     ],
   },

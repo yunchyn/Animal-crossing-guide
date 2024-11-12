@@ -2,18 +2,19 @@ import styled from "styled-components";
 import Menubar from "./menubar";
 import { Link } from "react-router-dom";
 
-const TitleImgContainer = styled(Link)`
+export const TitleImgContainer = styled(Link)`
   padding-top: 70px;
   padding-bottom: 15px;
   text-decoration: none;
   color: inherit;
 `;
 
-const TitleImg = styled.img`
+export const TitleImg = styled.img`
   width: 290px;
+  padding-right: 5px;
 `;
 
-export default function Header() {
+export function Header() {
   return (
     <>
       <TitleImgContainer to="/">

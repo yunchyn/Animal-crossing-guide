@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Header from "./header";
+import { Header } from "./header";
 import { Outlet } from "react-router-dom";
 
-const LayoutContainer = styled.div`
+export const LayoutContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -11,7 +11,7 @@ const LayoutContainer = styled.div`
   overflow: hidden;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   z-index: 1;
 `;
 
-const Overlay = styled.div`
+export const Overlay = styled.div`
   position: absolute;
   display: flex;
   width: 1240px;
@@ -30,7 +30,7 @@ const Overlay = styled.div`
   z-index: -1;
 `;
 
-const BackgroundImage = styled.div`
+export const BackgroundImage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -43,7 +43,7 @@ const BackgroundImage = styled.div`
   z-index: -2;
 `;
 
-export default function Layout() {
+export function Layout() {
   return (
     <LayoutContainer>
       <Wrapper>

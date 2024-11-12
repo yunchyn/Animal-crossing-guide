@@ -1,20 +1,37 @@
 import axios from "axios";
 
-// export const fetchVillagers = async () => {
-//   try {
-//     const response = await axios.get("https://api.nookipedia.com/villagers", {
-//       headers: {
-//         "X-API-KEY": process.env.REACT_APP_API_KEY,
-//         Accept: "application/json",
-//       },
-//     });
-//     return response.data;
-//   } catch (err) {
-//     console.error("오류가 발생했습니다: ", err);
-//   }
-// };
+const fetchVillagers = async () => {
+  try {
+    const response = await axios.get("https://api.nookipedia.com/villagers", {
+      headers: {
+        "X-API-KEY": process.env.REACT_APP_API_KEY,
+        Accept: "application/json",
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error("데이터 가져오는 중 오류: ", err);
+  }
+};
 
-export const speciesToKR = (species) => {
+const getVillagerStandingImg = async (name) => {
+  try {
+    const villagers = await fetchVillagers();
+
+    if (villagers) {
+      const villager = villagers.find((v) => v.name === name);
+      return villager ? villager.image_url : null;
+    } else {
+      console.error("주민 데이터를 가져오지 못했습니다.");
+      return null;
+    }
+  } catch (err) {
+    console.error("이미지 URL을 가져오는 중 오류가 발생했습니다: ", err);
+    return null;
+  }
+};
+
+const speciesToKR = (species) => {
   const translations = {
     Alligator: "악어",
     Anteater: "개미핥기",
@@ -57,7 +74,7 @@ export const speciesToKR = (species) => {
   return translations[species] || species;
 };
 
-export const personalityToKR = (personality) => {
+const personalityToKR = (personality) => {
   const translations = {
     Jock: "운동광",
     Cranky: "무뚝뚝",
@@ -71,3 +88,61 @@ export const personalityToKR = (personality) => {
 
   return translations[personality] || personality;
 };
+
+const creatureTypeToKR = (type) => {
+  const translations = {
+    Fish: "물고기",
+    Insects: "곤충",
+    "Sea Creatures": "해산물",
+  };
+
+  return translations[type] || type;
+};
+
+const catchAreaToKR = (area) => {
+  const translations = {
+    Sea: "바다",
+    River: "강",
+    Pier: "부두",
+    Pond: "연못",
+    "River (clifftop)": "강 (절벽 위)",
+    "Sea (rainy days)": "강 (비오는 날)",
+    "River (mouth)": "강 하구",
+    "On trees (any kind)": "모든 나무",
+    "Flying near flowers": "꽃 주위",
+    "On rotten turnips or candy": "썩은 무 또는 사탕",
+    "Shaking trees (hardwood or cedar only)": "나무 흔들기(활엽수 또는 칠엽수)",
+    "Flying near water": "물 주위",
+    "On the ground": "땅",
+    "On palm trees": "야자수",
+    "On hardwood/cedar trees": "활엽수 또는 칠엽수",
+    "From hitting rocks": "바위 때리기",
+    "On tree stumps": "나무 그루터기",
+    Flying: "하늘",
+    "On rivers/ponds": "강/연못 위",
+    "Pushing snowballs": "눈덩이",
+    "On villagers": "주민 위",
+    "Flying near trash (boots, tires, cans, used fountain fireworks) or rotten turnips": "썩은 무 또는 쓰레기 주위",
+    "Disguised on shoreline": "해변에 위장",
+    "On flowers": "꽃 위",
+    "Underground (dig where noise is loudest)": "땅 속",
+    "Flying near light sources": "전등 주위",
+    "On white flowers": "흰색 꽃 위",
+    "Flying near blue/purple/black flowers": "파랑/보라/검은 꽃 주위",
+    "On rocks/bushes": "바위/낮은 묘목",
+    "Disguised under trees": "나무 밑에 위장",
+    "Shaking trees": "나무 흔들기",
+    "On beach rocks": "해변 바위",
+  };
+
+  return translations[area] || area;
+};
+
+const weatherToKR = (wather) => {
+  const translations = {
+    "Any weather": "모든 날씨",
+    "Any except rain": "비가 오지 않는 날",
+  };
+};
+
+export { getVillagerStandingImg, speciesToKR, personalityToKR, creatureTypeToKR, catchAreaToKR };

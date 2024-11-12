@@ -1,79 +1,46 @@
 import { villagers } from "animal-crossing";
-import styled from "styled-components";
 import { useState } from "react";
 import { personalityToKR, speciesToKR } from "../utilities";
 import Dropdown from "../components/dropdown";
 import VillagerCard from "../components/villager-card";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  min-height: 100%;
-  background-color: white;
-`;
-
-const BackgroundImage = styled.div`
-  position: absolute;
-  width: 1160px;
-  min-height: 100%;
-  margin: 30px;
-  border-radius: 22px;
-  background-image: url("img/character-pattern.webp");
-  opacity: 60%;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; // 배경화면 위치 고정
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 950px;
-  min-height: 100%;
-  margin: 90px;
-  z-index: 1;
-`;
-
-const OptionWrapper = styled.div``;
-
-const DropdownWrapper = styled.div``;
-
-const SearchInput = styled.input`
-  margin: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  width: 100%;
-  margin-top: 20px;
-`;
+import Pagination from "../components/pagination";
+import {
+  BackgroundImage,
+  Container,
+  DropdownWrapper,
+  GridContainer,
+  OptionWrapper,
+  SearchInput,
+  Wrapper,
+} from "../styled-list";
 
 export default function VillagerList() {
   const [selectedSpecies, setSelectedSpecies] = useState("");
   const [selectedPersonality, setSelectedPersonality] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 18; // 페이지당 아이템 수
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(0); // 검색할 때 페이지를 0으로 리셋
   };
 
-  const speciesOptions = Array.from(new Set(villagers.map((v) => v.species))).map((species) => ({
-    value: species,
-    label: speciesToKR(species),
-  }));
+  const speciesOptions = [
+    { value: "", label: "종족" },
+    ...Array.from(new Set(villagers.map((v) => v.species))).map((species) => ({
+      value: species,
+      label: speciesToKR(species),
+    })),
+  ];
 
-  const personalityOptions = Array.from(new Set(villagers.map((v) => v.personality))).map((personality) => ({
-    value: personality,
-    label: personalityToKR(personality),
-  }));
+  const personalityOptions = [
+    { value: "", label: "성격" },
+    ...Array.from(new Set(villagers.map((v) => v.personality))).map((personality) => ({
+      value: personality,
+      label: personalityToKR(personality),
+    })),
+  ];
 
   // 검색/필터링된 값
   const filteredVillagers = villagers.filter((villager) => {
@@ -83,6 +50,14 @@ export default function VillagerList() {
     return matchesSpecies && matchesPersonality && matchesSearch;
   });
 
+  const pageCount = Math.ceil(filteredVillagers.length / itemsPerPage);
+  const displayedVillagers = filteredVillagers.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+    window.scrollTo(0, 320); // 페이지 변경 시 스크롤 맨 위로 이동
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -90,13 +65,13 @@ export default function VillagerList() {
           <DropdownWrapper>
             <Dropdown
               value={selectedSpecies}
-              onChange={(e) => setSelectedSpecies(e.target.value)}
+              onChange={(option) => setSelectedSpecies(option)}
               options={speciesOptions}
               defaultText="종족"
             />
             <Dropdown
               value={selectedPersonality}
-              onChange={(e) => setSelectedPersonality(e.target.value)}
+              onChange={(option) => setSelectedPersonality(option)}
               options={personalityOptions}
               defaultText="성격"
             />
@@ -109,13 +84,17 @@ export default function VillagerList() {
           />
         </OptionWrapper>
         <GridContainer>
-          {filteredVillagers.map((villager, index) => (
+          {displayedVillagers.map((villager, index) => (
             <VillagerCard
               key={index}
               villager={villager}
             />
           ))}
         </GridContainer>
+        <Pagination
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+        />
       </Wrapper>
       <BackgroundImage />
     </Container>
