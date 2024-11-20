@@ -1,5 +1,5 @@
 import React from "react";
-import { personalityToKR, speciesToKR } from "../utilities";
+import { personalityToKR, speciesToKR } from "../../utilities";
 import {
   CardContainer,
   DetailText,
@@ -9,13 +9,13 @@ import {
   Tag,
   VillagerImage,
   VillagerName,
-} from "../styled-card";
+} from "../../styled-card";
 
 export default function VillagerCard({ villager }) {
   const genderSymbol = villager.gender === "Male" ? "♂" : "♀";
 
   return (
-    <CardContainer to={`/${villager.name}`}>
+    <CardContainer to={`${villager.name}`}>
       <ImageContainer>
         <VillagerImage
           src={villager.iconImage}

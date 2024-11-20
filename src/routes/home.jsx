@@ -59,6 +59,7 @@ export default function Home() {
     } else {
       // 날짜가 다르다면 초기화
       localStorage.setItem("todosDate", currentDate);
+      localStorage.setItem("todos", JSON.stringify(initialTodos));
       return initialTodos;
     }
   });

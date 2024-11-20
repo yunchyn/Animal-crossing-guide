@@ -1,3 +1,4 @@
+import { items } from "animal-crossing";
 import axios from "axios";
 
 const fetchVillagers = async () => {
@@ -145,4 +146,64 @@ const weatherToKR = (wather) => {
   };
 };
 
-export { getVillagerStandingImg, speciesToKR, personalityToKR, creatureTypeToKR, catchAreaToKR };
+const findKKMusic = (music) => {
+  const findMusic = items.find((m) => m.name === music);
+  return findMusic;
+};
+
+const itemTypeToKR = (type) => {
+  const translations = {
+    Accessories: "액세서리",
+    Artwork: "예술품",
+    Bags: "가방",
+    Bottoms: "하의",
+    "Ceiling Decor": "천장 장식",
+    "Clothing Other": "기타 의류",
+    "Dress-Up": "원피스",
+    Fencing: "울타리",
+    Floors: "바닥",
+    Fossils: "화석",
+    Gyroids: "토용",
+    Headwear: "모자",
+    Housewares: "가구",
+    "Message Cards": "메시지 카드",
+    Miscellaneous: "잡화",
+    Music: "음악",
+    Other: "기타",
+    Photos: "사진",
+    Posters: "포스터",
+    Rugs: "러그",
+    Shoes: "신발",
+    Socks: "양말",
+    "Tools/Goods": "도구/잡화",
+    Tops: "상의",
+    Umbrellas: "우산",
+    "Wall-mounted": "벽걸이",
+    Wallpaper: "벽지",
+  };
+
+  return translations[type] || type;
+};
+
+function difficultyToKR(difficulty) {
+  const translations = {
+    Easy: "쉬움",
+    Hard: "어려움",
+    Medium: "보통",
+    "Very Easy": "매우 쉬움",
+    "Very Hard": "매우 어려움",
+  };
+
+  return translations[difficulty] || difficulty;
+}
+
+export {
+  getVillagerStandingImg,
+  speciesToKR,
+  personalityToKR,
+  creatureTypeToKR,
+  catchAreaToKR,
+  findKKMusic,
+  itemTypeToKR,
+  difficultyToKR,
+};

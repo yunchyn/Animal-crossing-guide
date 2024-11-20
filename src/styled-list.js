@@ -5,17 +5,17 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 100%;
+
   background-color: white;
 `;
 
 const BackgroundImage = styled.div`
   position: absolute;
   width: 1160px;
-  min-height: 100%;
+  height: 70.5%;
   margin: 30px;
   border-radius: 22px;
-  background-image: url("img/character-pattern.webp");
+  background-image: url("/img/character-pattern.webp");
   opacity: 60%;
   background-size: cover;
   background-position: center;
@@ -27,7 +27,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 950px;
-  min-height: 100%;
+  min-height: 250px;
+  height: 100%;
   margin: 90px;
   z-index: 1;
 `;

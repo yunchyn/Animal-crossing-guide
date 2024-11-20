@@ -2,7 +2,7 @@ import { villagers } from "animal-crossing";
 import { useState } from "react";
 import { personalityToKR, speciesToKR } from "../utilities";
 import Dropdown from "../components/dropdown";
-import VillagerCard from "../components/villager-card";
+import VillagerCard from "../components/card/villager-card";
 import Pagination from "../components/pagination";
 import {
   BackgroundImage,

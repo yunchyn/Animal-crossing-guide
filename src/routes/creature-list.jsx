@@ -2,7 +2,7 @@ import { creatures } from "animal-crossing";
 import { useState } from "react";
 import Dropdown from "../components/dropdown";
 import Pagination from "../components/pagination";
-import CreatureCard from "../components/creature-card";
+import CreatureCard from "../components/card/creature-card";
 import { creatureTypeToKR } from "../utilities";
 import {
   BackgroundImage,

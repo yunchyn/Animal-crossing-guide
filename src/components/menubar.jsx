@@ -74,7 +74,7 @@ export default function Menubar() {
           />
         </svg>
       </MenuIcon>
-      <MenuIcon>
+      <MenuIcon to="/item-list">
         <svg
           width="151"
           height="64"

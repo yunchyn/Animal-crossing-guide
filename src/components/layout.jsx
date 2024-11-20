@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Header } from "./header";
 import { Outlet } from "react-router-dom";
+import { Footer } from "./footer";
 
 export const LayoutContainer = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ export const BackgroundImage = styled.div`
   left: 0;
   width: 100%;
   min-height: 100%;
-  background-image: url("img/nook-pattern.webp");
+  background-image: url("/img/nook-pattern.webp");
   background-size: cover;
   background-position: center;
   background-attachment: fixed; // 배경화면 위치 고정
@@ -49,6 +50,7 @@ export function Layout() {
       <Wrapper>
         <Header />
         <Outlet /> {/* 칠드런 렌더 */}
+        <Footer />
       </Wrapper>
       <Overlay />
       <BackgroundImage />

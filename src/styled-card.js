@@ -19,10 +19,9 @@ const ImageContainer = styled.div`
   margin-right: 15px;
 `;
 
-const VillagerImage = styled.img`
+const IconImage = styled.img`
   width: 70px;
   height: 70px;
-  border-radius: 50%;
 `;
 
 const InfoContainer = styled.div`
@@ -61,4 +60,13 @@ const DetailText = styled.p`
   margin: 5px 0 0 0;
 `;
 
-export { CardContainer, ImageContainer, VillagerImage, InfoContainer, VillagerName, GenderSymbol, Tag, DetailText };
+export {
+  CardContainer,
+  ImageContainer,
+  IconImage as VillagerImage,
+  InfoContainer,
+  VillagerName,
+  GenderSymbol,
+  Tag,
+  DetailText,
+};

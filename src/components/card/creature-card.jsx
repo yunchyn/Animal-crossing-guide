@@ -7,14 +7,12 @@ import {
   Tag,
   VillagerImage,
   VillagerName,
-} from "../styled-card";
-import { catchAreaToKR, creatureTypeToKR } from "../utilities";
+} from "../../styled-card";
+import { catchAreaToKR, creatureTypeToKR } from "../../utilities";
 
 export default function CreatureCard({ creature }) {
-  //   const genderSymbol = villager.gender === "Male" ? "♂" : "♀";
-
   return (
-    <CardContainer to={`/${creature.name}`}>
+    <CardContainer to={`${creature.name}`}>
       <ImageContainer>
         <VillagerImage
           src={creature.iconImage}
