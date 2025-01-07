@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { creatures } from "animal-crossing";
 import { BackgroundImage, Container, Wrapper } from "../styled-list";
 import { catchAreaToKR, difficultyToKR } from "../utilities";
+import { Helmet } from "react-helmet-async";
+import { Loader } from "../loader";
 
 const DetailCardContainer = styled.div`
   width: 820px;
   height: 590px;
   background-image: url("/img/creature-detail-card.png");
-  border-radius: 47px 47px 0 0;
+  background-size: cover;
 
   display: flex;
   flex-direction: column;
@@ -25,7 +27,7 @@ const NameTag = styled.div`
   align-items: center;
 
   padding: 14px 20px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #fef6e1;
   font-size: 19px;
 
@@ -103,16 +105,44 @@ const DescWrapper = styled.div`
   font-size: 19px;
 `;
 
+const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 820px;
+  height: 590px;
+
+  display: flex;
+  margin-top: 15px;
+`;
+
 export default function Creatures() {
   const { creature } = useParams();
   const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 
   const creatureData = creatures.find((c) => c.name === creature);
 
-  if (!creatureData) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    if (creatureData?.critterpediaImage) {
+      const image = new Image();
+      image.src = creatureData.critterpediaImage;
+      image.onload = () => setIsImageLoaded(true);
+    }
+  }, [creatureData]);
+
+  const isLoading = !creatureData || !isImageLoaded;
+
+  if (isLoading) {
     return (
       <Container>
-        <Wrapper>해당 생물을 찾을 수 없습니다.</Wrapper>
+        <Wrapper>
+          <LoaderContainer>
+            <Loader />
+          </LoaderContainer>
+        </Wrapper>
         <BackgroundImage />
       </Container>
     );
@@ -122,6 +152,9 @@ export default function Creatures() {
 
   return (
     <Container>
+      <Helmet>
+        <title>{creatureData.translations.kRko} - 모동숲 가이드</title>
+      </Helmet>
       <Wrapper>
         <NameTag>{creatureData.translations.kRko}</NameTag>
         <DetailCardContainer>

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const MainTitleImg = styled.div`
   width: 100%;
   height: 300px;
-  background-image: url("img/title_img.png");
+  background-image: url("/img/title_img.png");
 `;
 
 const DialogContainer = styled.div`

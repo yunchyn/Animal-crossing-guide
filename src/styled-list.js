@@ -58,12 +58,28 @@ const SearchInput = styled.input`
   font-size: 15px;
 `;
 
+// const GridContainer = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+//   gap: 20px;
+//   width: 100%;
+//   margin-top: 20px;
+// `;
+
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개 */
   gap: 20px;
   width: 100%;
   margin-top: 20px;
 `;
 
-export { Container, BackgroundImage, Wrapper, OptionWrapper, DropdownWrapper, SearchInput, GridContainer };
+const Text = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #686868;
+  padding: 30px;
+`;
+
+export { Container, BackgroundImage, Wrapper, OptionWrapper, DropdownWrapper, SearchInput, GridContainer, Text };

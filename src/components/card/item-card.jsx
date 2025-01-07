@@ -16,14 +16,14 @@ export default function ItemCard({ item }) {
     item.storageImage ||
     item.framedImage ||
     item.inventoryImage ||
-    (item.variations && item.variations.length > 0 && item.variations[0].image) ||
-    (item.variations && item.variations.length > 0 && item.variations[0].storageImage);
+    (item.variations && item.variations.length > 0 && item.variations[0]?.image) ||
+    (item.variations && item.variations.length > 0 && item.variations[0]?.storageImage);
 
   if (!iconImgSrc) return null;
   if (item.sourceSheet === "Message Cards") return null; // 데이터 오류 있어서 null처리
 
   return (
-    <CardContainer to={`/${item.name}`}>
+    <CardContainer to={`/item-list/${encodeURIComponent(item.name)}`}>
       <ImageContainer>
         <VillagerImage
           src={iconImgSrc}

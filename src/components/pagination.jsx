@@ -9,6 +9,7 @@ const StyledReactPaginate = styled(ReactPaginate)`
   margin-top: 50px;
   cursor: pointer;
   list-style: none;
+  -webkit-user-select: none;
 
   .page-item {
     padding: 8px 12px;

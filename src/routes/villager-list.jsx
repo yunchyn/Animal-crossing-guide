@@ -11,8 +11,12 @@ import {
   GridContainer,
   OptionWrapper,
   SearchInput,
+  Text,
   Wrapper,
 } from "../styled-list";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
+import { gridMotion } from "../utilities";
 
 export default function VillagerList() {
   const [selectedSpecies, setSelectedSpecies] = useState("");
@@ -60,6 +64,9 @@ export default function VillagerList() {
 
   return (
     <Container>
+      <Helmet>
+        <title>주민 일람 - 모동숲 가이드</title>
+      </Helmet>
       <Wrapper>
         <OptionWrapper>
           <DropdownWrapper>
@@ -83,14 +90,37 @@ export default function VillagerList() {
             onChange={handleSearchChange}
           />
         </OptionWrapper>
-        <GridContainer>
-          {displayedVillagers.map((villager, index) => (
-            <VillagerCard
-              key={index}
-              villager={villager}
-            />
-          ))}
-        </GridContainer>
+
+        {/* {displayedVillagers.length > 0 ? (
+          <GridContainer>
+            {displayedVillagers.map((villager, index) => (
+              <motion.div
+                key={index}
+                {...cardMotion(index)}
+              >
+                <VillagerCard villager={villager} />
+              </motion.div>
+            ))}
+          </GridContainer>
+        ) : (
+          <Text>검색된 내용이 없습니다. 😢</Text>
+        )} */}
+
+        {displayedVillagers.length > 0 ? (
+          <motion.div {...gridMotion}>
+            <GridContainer>
+              {displayedVillagers.map((villager, index) => (
+                <VillagerCard
+                  key={index}
+                  villager={villager}
+                />
+              ))}
+            </GridContainer>
+          </motion.div>
+        ) : (
+          <Text>검색된 내용이 없습니다. 😢</Text>
+        )}
+
         <Pagination
           pageCount={pageCount}
           onPageChange={handlePageClick}

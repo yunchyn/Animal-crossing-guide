@@ -6,6 +6,7 @@ import { findKKMusic, getVillagerStandingImg, personalityToKR, speciesToKR } fro
 import { BackgroundImage, Container, Wrapper } from "../styled-list";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "../loader";
+import { Helmet } from "react-helmet-async";
 
 const DetailCardWrapper = styled.div`
   width: 871px;
@@ -167,33 +168,53 @@ const DetailCardImage = styled.img`
   z-index: -2;
 `;
 
+const LoaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function Villagers() {
   const { villager } = useParams();
 
   const villagerData = villagers.find((v) => v.name === villager);
 
   // 스탠딩 이미지 캐싱을 위해 usequery 사용
-  const { data: standingImg, isLoading } = useQuery({
+  const { data: standingImg, isLoading: isStandingImgLoading } = useQuery({
     queryKey: ["villagerStandingImg", villager],
     queryFn: () => getVillagerStandingImg(villager),
     cacheTime: Infinity,
     staleTime: Infinity,
   });
 
-  if (!villagerData) {
+  const findedMusic = villagerData ? findKKMusic(villagerData.favoriteSong) : null;
+
+  // 전체 로딩이 끝나면 주민 카드를 보여줌
+  const isLoading = isStandingImgLoading || !villagerData || !findedMusic;
+
+  if (isLoading) {
     return (
       <Container>
-        <Wrapper>해당 주민을 찾을 수 없습니다.</Wrapper>
+        <Wrapper>
+          <DetailCardWrapper>
+            <LoaderContainer>
+              <Loader />
+            </LoaderContainer>
+          </DetailCardWrapper>
+        </Wrapper>
         <BackgroundImage />
       </Container>
     );
   }
 
   const genderSymbol = villagerData.gender === "Male" ? "♂" : "♀";
-  const findedMusic = findKKMusic(villagerData.favoriteSong);
 
   return (
     <Container>
+      <Helmet>
+        <title>{villagerData.translations.kRko} - 모동숲 가이드</title>
+      </Helmet>
       <Wrapper>
         <DetailCardWrapper>
           <ProfileContainer>
@@ -202,14 +223,10 @@ export default function Villagers() {
               <GenderSymbol gender={villagerData.gender}>{genderSymbol}</GenderSymbol>
             </NameTitle>
             <StandingImageContainer>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <StandingImage
-                  src={standingImg}
-                  alt="Standing Image"
-                />
-              )}
+              <StandingImage
+                src={standingImg}
+                alt="Standing Image"
+              />
             </StandingImageContainer>
             <DescContainer>
               <DescItem>

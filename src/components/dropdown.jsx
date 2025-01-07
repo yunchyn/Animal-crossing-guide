@@ -4,7 +4,7 @@ import styled from "styled-components";
 const DropdownWrapper = styled.div`
   position: relative;
   width: 220px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 const DropdownButton = styled.div`
@@ -13,6 +13,7 @@ const DropdownButton = styled.div`
   border-radius: 6px;
   overflow: hidden;
   background-color: white;
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
 `;
 
 const DropdownLabel = styled.div`
@@ -21,6 +22,7 @@ const DropdownLabel = styled.div`
   font-size: 16px;
   text-align: center;
   font-weight: bold;
+  color: ${({ disabled }) => (disabled ? "#6d6d6d" : "black")};
 `;
 
 const DropdownIcon = styled.div`
@@ -58,20 +60,28 @@ const DropdownItem = styled.li`
   }
 `;
 
-export default function Dropdown({ value, onChange, options, defaultText }) {
+export default function Dropdown({ value, onChange, options, defaultText, disabled = false }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = () => setIsOpen((prev) => !prev);
+  const handleToggle = () => {
+    if (!disabled) setIsOpen((prev) => !prev);
+  };
+
   const handleSelect = (option) => {
     onChange(option.value);
     setIsOpen(false);
   };
 
   return (
-    <DropdownWrapper>
-      <DropdownButton onClick={handleToggle}>
-        <DropdownLabel>{value ? options.find((option) => option.value === value).label : defaultText}</DropdownLabel>
-        <DropdownIcon>{!isOpen ? "▼" : "▲"}</DropdownIcon>
+    <DropdownWrapper disabled={disabled}>
+      <DropdownButton
+        onClick={handleToggle}
+        disabled={disabled}
+      >
+        <DropdownLabel disabled={disabled}>
+          {value ? options.find((option) => option.value === value).label : defaultText}
+        </DropdownLabel>
+        <DropdownIcon disabled={disabled}>{!isOpen ? "▼" : "▲"}</DropdownIcon>
       </DropdownButton>
       {isOpen && (
         <DropdownList>

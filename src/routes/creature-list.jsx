@@ -3,7 +3,7 @@ import { useState } from "react";
 import Dropdown from "../components/dropdown";
 import Pagination from "../components/pagination";
 import CreatureCard from "../components/card/creature-card";
-import { creatureTypeToKR } from "../utilities";
+import { creatureTypeToKR, gridMotion } from "../utilities";
 import {
   BackgroundImage,
   Container,
@@ -11,8 +11,11 @@ import {
   GridContainer,
   OptionWrapper,
   SearchInput,
+  Text,
   Wrapper,
 } from "../styled-list";
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 
 export default function CreatList() {
   const [selectedType, setSelectedType] = useState("");
@@ -50,6 +53,9 @@ export default function CreatList() {
 
   return (
     <Container>
+      <Helmet>
+        <title>생물 도감 - 모동숲 가이드</title>
+      </Helmet>
       <Wrapper>
         <OptionWrapper>
           <DropdownWrapper>
@@ -67,14 +73,22 @@ export default function CreatList() {
             onChange={handleSearchChange}
           />
         </OptionWrapper>
-        <GridContainer>
-          {displayedCreatures.map((creature, index) => (
-            <CreatureCard
-              key={index}
-              creature={creature}
-            />
-          ))}
-        </GridContainer>
+
+        {displayedCreatures.length > 0 ? (
+          <motion.div {...gridMotion}>
+            <GridContainer>
+              {displayedCreatures.map((creature, index) => (
+                <CreatureCard
+                  key={index}
+                  creature={creature}
+                />
+              ))}
+            </GridContainer>
+          </motion.div>
+        ) : (
+          <Text>검색된 내용이 없습니다. 😢</Text>
+        )}
+
         <Pagination
           pageCount={pageCount}
           onPageChange={handlePageClick}

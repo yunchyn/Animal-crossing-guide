@@ -9,21 +9,14 @@ import CreatureList from "./routes/creature-list";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ItemList from "./routes/item-list";
 import Creatures from "./routes/creatures";
+import EventList from "./routes/event-list";
+import Items from "./routes/items";
+import RecipeList from "./routes/recipe-list";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import "./font.css";
 
 const GlobalStyles = createGlobalStyle`
 ${reset};
-@font-face {
-  font-family: "Korean-YGDL";
-  src: url("/fonts/KoreanYGDL.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Korean-YGDB";
-  src: url("/fonts/KoreanYGDB.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
 body {
    font-family: "Korean-YGDL";
    overflow-x: hidden;
@@ -35,6 +28,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    meta: { title: "Home - My App" },
   },
   {
     path: "/",
@@ -60,6 +54,18 @@ const router = createBrowserRouter([
         path: "item-list",
         element: <ItemList />,
       },
+      {
+        path: "item-list/:item",
+        element: <Items />,
+      },
+      {
+        path: "recipe-list",
+        element: <RecipeList />,
+      },
+      {
+        path: "event-list",
+        element: <EventList />,
+      },
     ],
   },
 ]);
@@ -69,10 +75,15 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App">
-        <GlobalStyles />
-        <RouterProvider router={router} />
-      </div>
+      <HelmetProvider>
+        <Helmet>
+          <title>모동숲 가이드</title>
+        </Helmet>
+        <div className="App">
+          <GlobalStyles />
+          <RouterProvider router={router} />
+        </div>
+      </HelmetProvider>
     </QueryClientProvider>
   );
 }

@@ -1,6 +1,12 @@
 import { items } from "animal-crossing";
 import axios from "axios";
 
+export const gridMotion = {
+  initial: { opacity: 0, y: -20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+};
+
 const fetchVillagers = async () => {
   try {
     const response = await axios.get("https://api.nookipedia.com/villagers", {
@@ -11,7 +17,21 @@ const fetchVillagers = async () => {
     });
     return response.data;
   } catch (err) {
-    console.error("데이터 가져오는 중 오류: ", err);
+    console.error("Villager 데이터 가져오는 중 오류: ", err);
+  }
+};
+
+const fetchEvents = async () => {
+  try {
+    const response = await axios.get("https://api.nookipedia.com/nh/events", {
+      headers: {
+        "X-API-KEY": process.env.REACT_APP_API_KEY,
+        Accept: "application/json",
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error("Event 데이터 가져오는 중 오류: ", err);
   }
 };
 
@@ -23,7 +43,7 @@ const getVillagerStandingImg = async (name) => {
       const villager = villagers.find((v) => v.name === name);
       return villager ? villager.image_url : null;
     } else {
-      console.error("주민 데이터를 가져오지 못했습니다.");
+      console.error("주민 데이터 페칭 중 오류");
       return null;
     }
   } catch (err) {
@@ -139,13 +159,6 @@ const catchAreaToKR = (area) => {
   return translations[area] || area;
 };
 
-const weatherToKR = (wather) => {
-  const translations = {
-    "Any weather": "모든 날씨",
-    "Any except rain": "비가 오지 않는 날",
-  };
-};
-
 const findKKMusic = (music) => {
   const findMusic = items.find((m) => m.name === music);
   return findMusic;
@@ -197,8 +210,49 @@ function difficultyToKR(difficulty) {
   return translations[difficulty] || difficulty;
 }
 
+function colorToKR(color) {
+  const translations = {
+    Aqua: "아쿠아",
+    Beige: "베이지",
+    Black: "검정",
+    Blue: "파랑",
+    Brown: "갈색",
+    Colorful: "컬러풀",
+    Gray: "회색",
+    Green: "녹색",
+    Orange: "주황",
+    Pink: "분홍",
+    Purple: "보라",
+    Red: "빨강",
+    White: "흰색",
+    Yellow: "노랑",
+  };
+
+  return translations[color] || color;
+}
+
+function categoryToKR(category) {
+  const translations = {
+    "Ceiling Decor": "천장 장식",
+    Equipment: "액세서리",
+    Floors: "바닥",
+    Housewares: "가구",
+    Miscellaneous: "잡화",
+    Other: "기타",
+    Rugs: "러그",
+    Savory: "음식",
+    Sweet: "디저트",
+    Tools: "도구",
+    "Wall-mounted": "벽걸이",
+    Wallpaper: "벽지",
+  };
+
+  return translations[category] || category;
+}
+
 export {
   getVillagerStandingImg,
+  fetchEvents,
   speciesToKR,
   personalityToKR,
   creatureTypeToKR,
@@ -206,4 +260,6 @@ export {
   findKKMusic,
   itemTypeToKR,
   difficultyToKR,
+  colorToKR,
+  categoryToKR,
 };

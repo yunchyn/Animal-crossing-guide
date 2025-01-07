@@ -9,19 +9,13 @@ import {
   GridContainer,
   OptionWrapper,
   SearchInput,
+  Text,
   Wrapper,
 } from "../styled-list";
-import { itemTypeToKR } from "../utilities";
+import { gridMotion, itemTypeToKR } from "../utilities";
 import ItemCard from "../components/card/item-card";
-import styled from "styled-components";
-
-const Text = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  color: #686868;
-  padding: 30px;
-`;
+import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 
 export default function ItemList() {
   const [selectedType, setSelectedType] = useState("");
@@ -78,6 +72,9 @@ export default function ItemList() {
 
   return (
     <Container>
+      <Helmet>
+        <title>아이템 카탈로그 - 모동숲 가이드</title>
+      </Helmet>
       <Wrapper>
         <OptionWrapper>
           <DropdownWrapper>
@@ -95,6 +92,7 @@ export default function ItemList() {
               onChange={(option) => setSelectedSubType(option)}
               options={currentSubTypeOptions}
               defaultText="소분류"
+              disabled={!selectedType || currentSubTypeOptions.length === 0} // 대분류가 선택되지 않았거나 소분류가 없는 경우 비활성화
             />
           </DropdownWrapper>
           <SearchInput
@@ -106,14 +104,16 @@ export default function ItemList() {
         </OptionWrapper>
 
         {displayedItems.length > 0 ? (
-          <GridContainer>
-            {displayedItems.map((item, index) => (
-              <ItemCard
-                key={index}
-                item={item}
-              />
-            ))}
-          </GridContainer>
+          <motion.div {...gridMotion}>
+            <GridContainer>
+              {displayedItems.map((item, index) => (
+                <ItemCard
+                  key={index}
+                  item={item}
+                />
+              ))}
+            </GridContainer>
+          </motion.div>
         ) : (
           <Text>검색된 내용이 없습니다. 😢</Text>
         )}

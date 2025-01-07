@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Korean-YGDL";
+  src: url("../public/fonts/KoreanYGDL.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Korean-YGDB";
+  src: url("../public/fonts/KoreanYGDB.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

@@ -100,7 +100,7 @@ export default function Menubar() {
           />
         </svg>
       </MenuIcon>
-      <MenuIcon>
+      <MenuIcon to="/recipe-list">
         <svg
           width="151"
           height="63"
@@ -125,7 +125,7 @@ export default function Menubar() {
           />
         </svg>
       </MenuIcon>
-      <MenuIcon>
+      <MenuIcon to="/event-list">
         <svg
           width="150"
           height="63"
