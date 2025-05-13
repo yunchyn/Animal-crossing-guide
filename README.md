@@ -1,74 +1,82 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# 모동숲 가이드
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 프로젝트 개요
+게임 '모여봐요 동물의 숲'의 공략 정보와 가이드를 제공하는 사이트로, 오픈 API인 [Nookipedia API](https://api.nookipedia.com/)와 [Animal-crossing 라이브러리](https://github.com/Norviah/animal-crossing/tree/master)를 이용하여 페이지를 구현하였습니다.
 
-## Available Scripts
+- 프로젝트 기간: 2024.10.31. - 2025.01.07.
+- 참여 인원: 1명 (프론트엔드 1명)
+- 배포 URL :  [https://animal-crossing-guide.vercel.app/](https://animal-crossing-guide.vercel.app/)
 
-In the project directory, you can run:
+&nbsp;
+### 주요 기능
+- 주민 일람
+- 생물 도감
+- 아이템 카탈로그
+- 레시피 도감
+- 이벤트 일정
+- 주민/생물/아이템 상세 페이지
+- 메인 화면 Todo 목록
+- 키워드 검색 및 카테고리 필터링
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+&nbsp;
+### 기술 스택
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Axios](https://img.shields.io/badge/axios-%5A29E4.svg?style=for-the-badge&logo=axios&logoColor=white)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+&nbsp;
+### 폴더 구조
 
-### `npm test`
+```bash
+📦src
+ ┣ 📂components
+ ┃ ┣ 📂card
+ ┃ ┃ ┣ 📜creature-card.jsx
+ ┃ ┃ ┣ 📜item-card.jsx
+ ┃ ┃ ┣ 📜recipe-card.jsx
+ ┃ ┃ ┗ 📜villager-card.jsx
+ ┃ ┣ 📜dropdown.jsx
+ ┃ ┣ 📜footer.jsx
+ ┃ ┣ 📜header.jsx
+ ┃ ┣ 📜layout.jsx
+ ┃ ┣ 📜menubar.jsx
+ ┃ ┗ 📜pagination.jsx
+ ┣ 📂routes
+ ┃ ┣ 📜creature-list.jsx
+ ┃ ┣ 📜creatures.jsx
+ ┃ ┣ 📜event-list.jsx
+ ┃ ┣ 📜home.jsx
+ ┃ ┣ 📜item-list.jsx
+ ┃ ┣ 📜items.jsx
+ ┃ ┣ 📜recipe-list.jsx
+ ┃ ┣ 📜villager-list.jsx
+ ┃ ┗ 📜villagers.jsx
+ ┣ 📜App.js
+ ┣ 📜font.css
+ ┣ 📜index.js
+ ┣ 📜loader.js
+ ┣ 📜logo.svg
+ ┣ 📜styled-card.js
+ ┣ 📜styled-detail.js
+ ┣ 📜styled-list.js
+ ┗ 📜utilities.js
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
 
-### `npm run build`
+&nbsp;
+## 프로젝트 화면
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img src="https://github.com/user-attachments/assets/fc92265e-e27a-4e88-88e5-604295251c3b" alt="Image 1" />
+<img src="https://github.com/user-attachments/assets/58d34d21-7573-4967-bfd5-96a08dd9b675" alt="Image" />
+<img src="https://github.com/user-attachments/assets/3e3f4ba1-44f5-4c22-9950-3b7b2c8d3877" alt="Image" />
+<img src="https://github.com/user-attachments/assets/8e885ef3-3e95-4182-8551-1bba7c4a0119" alt="Image" />
+<img src="https://github.com/user-attachments/assets/eddbc338-ecb7-466a-a608-b56996a66918" alt="Image" />
+<img src="https://github.com/user-attachments/assets/eb193d5f-574f-4db4-9359-92d4fa205833" alt="Image" />
+<img src="https://github.com/user-attachments/assets/b20c97f9-d3de-4737-9a30-00b1888756e5" alt="Image" />
+<img src="https://github.com/user-attachments/assets/e3eb09aa-c633-487c-af58-ec6470a9a871" alt="Image" />
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# Animal-crossing-guide
->>>>>>> f17a29b3d5e1f8c7c3d8b2e99be655459e67f30f
